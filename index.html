@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>4K — Gizli Saklı | Resmî Web Sitesi</title>
-<meta name="description" content="4K — Gizli Saklı. Uzun metraj psikolojik gerilim ve dram filmi. Her sır saklandığı yerde büyür. Dört kadın, bir villa, bir sır. Yapım aşamasında.">
-<meta property="og:title" content="4K — Gizli Saklı | Yakında">
+<title>4K — Bizim Şarkımız | Resmî Web Sitesi</title>
+<meta name="description" content="4K — Bizim Şarkımız. Uzun metraj romantik dram filmi. Her sır saklandığı yerde büyür. Dört kadın, bir villa, bir sır. Yapım aşamasında.">
+<meta property="og:title" content="4K — Bizim Şarkımız | Yakında">
 <meta property="og:description" content="Her sır saklandığı yerde büyür. Dört kadın, bir villa, bir sır. Uzun metraj sinema filmi — yapım aşamasında.">
 <meta property="og:image" content="https://www.4kfilm.com.tr/assets/still-villa.jpg">
 <meta property="og:url" content="https://www.4kfilm.com.tr">
@@ -319,11 +319,11 @@
 <header class="hero">
   <span class="badge">Yapım Aşamasında &bull; Yakında</span>
   <h1>4K</h1>
-  <h2>Gizli Saklı</h2>
+  <h2>Bizim Şarkımız</h2>
   <div class="rule"></div>
   <p class="tagline">&ldquo;Her sır saklandığı yerde büyür.&rdquo;</p>
   <div class="genre">
-    <span>Psikolojik Gerilim</span>
+    <span>Romantik</span>
     <span>Dram</span>
     <span>Uzun Metraj Sinema Filmi</span>
   </div>
@@ -378,7 +378,7 @@
     <img src="assets/title-card.jpg" alt="4K — Bizim Şarkımız">
     <div class="music-body">
       <p>Filmin dünyasına eşlik eden özgün şarkı &ldquo;Bizim Şarkımız&rdquo;dan bir kesit.</p>
-      <audio controls preload="none" src="assets/bizim-sarkimiz.mp3"></audio>
+      <audio id="theme-song" controls autoplay preload="auto" src="assets/bizim-sarkimiz.mp3"></audio>
     </div>
   </div>
 </section>
@@ -403,6 +403,19 @@
     if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
   }), { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Şarkı siteye girer girmez başlasın; tarayıcı engellerse ilk etkileşimde başlat
+  const song = document.getElementById('theme-song');
+  song.volume = 0.7;
+  function startSong() {
+    song.play().then(() => {
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
+        window.removeEventListener(ev, startSong));
+    }).catch(() => {});
+  }
+  startSong();
+  ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
+    window.addEventListener(ev, startSong, { once: false, passive: true }));
 </script>
 
 </body>
