@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4K — Gizli Saklı | Resmî Web Sitesi</title>
+<meta name="description" content="4K — Gizli Saklı. Uzun metraj psikolojik gerilim ve dram filmi. Her sır saklandığı yerde büyür. Dört kadın, bir villa, bir sır. Yapım aşamasında.">
+<meta property="og:title" content="4K — Gizli Saklı | Yakında">
+<meta property="og:description" content="Her sır saklandığı yerde büyür. Dört kadın, bir villa, bir sır. Uzun metraj sinema filmi — yapım aşamasında.">
+<meta property="og:image" content="https://www.4kfilm.com.tr/assets/still-villa.jpg">
+<meta property="og:url" content="https://www.4kfilm.com.tr">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/filigran.png">
+<style>
+  :root {
+    --bg: #060606;
+    --bg2: #0d0c0a;
+    --amber: #e8a95c;
+    --amber-dim: #b07f42;
+    --text: #d9d4cc;
+    --muted: #8a847a;
+    --line: rgba(232, 169, 92, 0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--amber); color: #000; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    isolation: isolate;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url('assets/still-villa.jpg') center 30% / cover no-repeat;
+    z-index: -2;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(6,6,6,.55) 0%, rgba(6,6,6,.35) 40%, rgba(6,6,6,.92) 88%, var(--bg) 100%);
+    z-index: -1;
+  }
+  .badge {
+    display: inline-block;
+    border: 1px solid var(--line);
+    color: var(--amber);
+    font-size: .72rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    padding: .5rem 1.1rem .5rem 1.45rem;
+    border-radius: 2rem;
+    backdrop-filter: blur(4px);
+    background: rgba(6,6,6,.45);
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { border-color: var(--line); }
+    50% { border-color: rgba(232,169,92,.65); }
+  }
+  .hero h1 {
+    font-size: clamp(5rem, 18vw, 11rem);
+    font-weight: 300;
+    letter-spacing: .06em;
+    color: #f4e3c8;
+    line-height: 1;
+    margin-top: 1.6rem;
+    text-shadow: 0 0 60px rgba(232,169,92,.35);
+  }
+  .hero h2 {
+    font-size: clamp(1.3rem, 4.5vw, 2.4rem);
+    font-weight: 200;
+    letter-spacing: .55em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: .8rem 0 0 .55em;
+  }
+  .hero .rule {
+    width: min(320px, 60vw);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    margin: 2rem auto;
+  }
+  .tagline {
+    font-size: clamp(1rem, 2.6vw, 1.3rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text);
+    letter-spacing: .04em;
+  }
+  .genre {
+    margin-top: 2.2rem;
+    display: flex;
+    gap: .8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .genre span {
+    font-size: .7rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,.14);
+    padding: .35rem .9rem .35rem 1.15rem;
+    border-radius: 2rem;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    color: var(--muted);
+    font-size: .68rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    animation: drift 2.4s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(-50%, 0); opacity: .55; }
+    50% { transform: translate(-50%, 8px); opacity: 1; }
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 5.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .sec-label {
+    color: var(--amber);
+    font-size: .72rem;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    margin-bottom: .9rem;
+  }
+  .sec-title {
+    font-size: clamp(1.7rem, 5vw, 2.6rem);
+    font-weight: 250;
+    color: #f0e9de;
+    letter-spacing: .03em;
+    margin-bottom: 1.6rem;
+  }
+  .lead { color: var(--text); max-width: 780px; font-weight: 300; }
+  .lead + .lead { margin-top: 1rem; }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.08);
+    margin-top: 3rem;
+  }
+  .pillars div {
+    background: var(--bg2);
+    padding: 1.8rem 1.5rem;
+  }
+  .pillars b {
+    display: block;
+    color: var(--amber);
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-size: .85rem;
+    margin-bottom: .6rem;
+  }
+  .pillars p { font-size: .92rem; color: var(--muted); font-weight: 300; }
+
+  /* ---------- Characters ---------- */
+  .chars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.4rem;
+    margin-top: 2.5rem;
+  }
+  .char {
+    border: 1px solid rgba(255,255,255,.09);
+    border-top: 2px solid var(--amber-dim);
+    background: var(--bg2);
+    padding: 1.7rem 1.5rem;
+    transition: transform .35s, border-color .35s;
+  }
+  .char:hover { transform: translateY(-5px); border-top-color: var(--amber); }
+  .char h3 {
+    color: #f0e9de;
+    font-weight: 400;
+    font-size: 1.25rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: .7rem;
+  }
+  .char p { font-size: .9rem; color: var(--muted); font-weight: 300; }
+
+  /* ---------- Gallery ---------- */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: .8rem;
+    margin-top: 2.5rem;
+  }
+  .gallery figure {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: var(--bg2);
+  }
+  .gallery img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(.92);
+    transition: transform .6s ease, filter .6s ease;
+    display: block;
+  }
+  .gallery figure:hover img { transform: scale(1.05); filter: saturate(1.05); }
+  .gallery figcaption {
+    position: absolute; inset: auto 0 0 0;
+    padding: 2rem .9rem .7rem;
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(240,233,222,.85);
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,.75));
+    opacity: 0;
+    transition: opacity .4s;
+  }
+  .gallery figure:hover figcaption { opacity: 1; }
+  .gallery-note {
+    margin-top: 1.2rem;
+    font-size: .78rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ---------- Music ---------- */
+  .music-wrap {
+    display: grid;
+    grid-template-columns: minmax(220px, 380px) 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-top: 2.5rem;
+  }
+  .music-wrap img { width: 100%; display: block; border: 1px solid rgba(255,255,255,.1); }
+  .music-body p { color: var(--muted); font-weight: 300; margin-bottom: 1.4rem; }
+  audio { width: 100%; filter: invert(.92) hue-rotate(180deg); }
+  @media (max-width: 720px) { .music-wrap { grid-template-columns: 1fr; } }
+
+  /* ---------- Contact ---------- */
+  .contact {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,.07);
+  }
+  .contact .mail {
+    display: inline-block;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    color: var(--amber);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: .3rem;
+    margin: 1.2rem 0;
+    letter-spacing: .04em;
+    transition: color .3s, border-color .3s;
+  }
+  .contact .mail:hover { color: #f4e3c8; border-color: var(--amber); }
+  .contact p { color: var(--muted); font-weight: 300; }
+
+  footer {
+    text-align: center;
+    padding: 2.5rem 1.5rem 3rem;
+    border-top: 1px solid rgba(255,255,255,.07);
+    color: var(--muted);
+    font-size: .78rem;
+    letter-spacing: .08em;
+  }
+  footer .brand {
+    color: var(--amber-dim);
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    font-size: .72rem;
+    margin-bottom: .6rem;
+  }
+  .construction {
+    margin-top: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--amber-dim);
+    border: 1px dashed rgba(232,169,92,.35);
+    padding: .45rem 1rem;
+    border-radius: 2rem;
+  }
+  .construction .dot {
+    width: 7px; height: 7px;
+    background: var(--amber);
+    border-radius: 50%;
+    animation: blink 1.6s infinite;
+  }
+  @keyframes blink { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.on { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="badge">Yapım Aşamasında &bull; Yakında</span>
+  <h1>4K</h1>
+  <h2>Gizli Saklı</h2>
+  <div class="rule"></div>
+  <p class="tagline">&ldquo;Her sır saklandığı yerde büyür.&rdquo;</p>
+  <div class="genre">
+    <span>Psikolojik Gerilim</span>
+    <span>Dram</span>
+    <span>Uzun Metraj Sinema Filmi</span>
+  </div>
+  <a class="scroll-hint" href="#film">Keşfet &darr;</a>
+</header>
+
+<section id="film" class="reveal">
+  <p class="sec-label">Film Hakkında</p>
+  <h2 class="sec-title">Bazı sırlar gömülmez.</h2>
+  <p class="lead">Dört genç kadın, yılların birikmiş sessizliğiyle dolu bir hafta sonu tatiline çıkar. Antalya'nın göz kamaştırıcı güzellikteki lüks bir villasında buluşurlar; deniz, güneş ve eğlence vaat eden bir kaçış. Ancak tatilin ilerleyen saatlerinde geçmişin karanlık yüzü yavaş yavaş gün yüzüne çıkmaya başlar.</p>
+  <p class="lead">Dostluk, aşk, ihanet ve vicdan arasında sıkışıp kalan bu dört karakter, geri dönüşü olmayan bir yolculuğa sürüklenir. Antalya'nın büyülü atmosferi, bu karanlık hikâyenin yalnızca arka planı değil; gizlenen her sırrı ortaya çıkaran yaşayan bir tanık haline gelir.</p>
+  <div class="pillars">
+    <div><b>4 Kadın</b><p>Her biri farklı bir geçmiş, farklı bir yara ve farklı bir sırla yüklü.</p></div>
+    <div><b>Bir Villa</b><p>Lüksün içinde gizlenen karanlık; hem sığınak hem hapishane.</p></div>
+    <div><b>Bir Sır</b><p>Yıllarca saklanmış, büyüyüp güçlenmiş. Artık konuşulma zamanı geldi.</p></div>
+    <div><b>Geri Dönüşü Yok</b><p>Yüzleşme başladığında hiçbir şey eskisi gibi olmayacak.</p></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <p class="sec-label">Karakterler</p>
+  <h2 class="sec-title">Dört kadın, dört sır.</h2>
+  <div class="chars">
+    <div class="char"><h3>Şenay</h3><p>Başarı ve kontrol tutkusu arasında sıkışan grubun lideri. Bu tatilde kendi sınırlarıyla yüzleşecek.</p></div>
+    <div class="char"><h3>Selin</h3><p>Güzelliği ve çekiciliğiyle dikkat çeker; görünenden çok daha karmaşıktır. İlgi görme arzusu onu beklenmedik kararların eşiğine sürükler.</p></div>
+    <div class="char"><h3>Elif</h3><p>Herkesin yanında olmaya çalışırken kendi duygularını ikinci plana atmıştır. Bazı sırlar onu ilk kez kendi tarafını seçmeye zorlayacak.</p></div>
+    <div class="char"><h3>Tuğçe</h3><p>Grubun en bağımsız üyesi. Mantığıyla hareket eder — olaylar kontrolden çıktığında gerçekleri ilk o fark edecek.</p></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <p class="sec-label">Galeri</p>
+  <h2 class="sec-title">Filmin dünyasından kareler</h2>
+  <div class="gallery">
+    <figure><img src="assets/still-arrival.jpg" alt="Villaya varış — Antalya" loading="lazy"><figcaption>Villaya Varış</figcaption></figure>
+    <figure><img src="assets/still-pool.jpg" alt="Havuz başında dört kadın" loading="lazy"><figcaption>Havuz Başı</figcaption></figure>
+    <figure><img src="assets/still-circle.jpg" alt="Yüzleşme anı" loading="lazy"><figcaption>Yüzleşme</figcaption></figure>
+    <figure><img src="assets/still-dinner.jpg" alt="Akşam yemeğinde gerilim" loading="lazy"><figcaption>Gerilim</figcaption></figure>
+    <figure><img src="assets/still-phone.jpg" alt="Telefon ışığında bir kadın" loading="lazy"><figcaption>Gizli Mesaj</figcaption></figure>
+    <figure><img src="assets/still-streets.jpg" alt="Kaleiçi dar sokaklar" loading="lazy"><figcaption>Kaleiçi</figcaption></figure>
+    <figure><img src="assets/still-lounge.jpg" alt="Havuz kenarında dinlenme" loading="lazy"><figcaption>Sessizlik</figcaption></figure>
+    <figure><img src="assets/still-storyboard.jpg" alt="Storyboard çalışması" loading="lazy"><figcaption>Storyboard</figcaption></figure>
+    <figure><img src="assets/still-bed.jpg" alt="Yatak odasında düşünceli bir an" loading="lazy"><figcaption>Yalnızlık</figcaption></figure>
+  </div>
+  <p class="gallery-note">Görseller ön yapım (konsept) çalışmalarıdır.</p>
+</section>
+
+<section class="reveal">
+  <p class="sec-label">Film Müziği</p>
+  <h2 class="sec-title">Bizim Şarkımız</h2>
+  <div class="music-wrap">
+    <img src="assets/title-card.jpg" alt="4K — Bizim Şarkımız">
+    <div class="music-body">
+      <p>Filmin dünyasına eşlik eden özgün şarkı &ldquo;Bizim Şarkımız&rdquo;dan bir kesit.</p>
+      <audio controls preload="none" src="assets/bizim-sarkimiz.mp3"></audio>
+    </div>
+  </div>
+</section>
+
+<section class="contact reveal">
+  <p class="sec-label">İletişim</p>
+  <h2 class="sec-title">İş birliği &amp; iletişim</h2>
+  <p>Sponsorluk, basın ve iş birliği talepleriniz için bize yazın.</p>
+  <a class="mail" href="mailto:info@4kfilm.com.tr">info@4kfilm.com.tr</a>
+  <p>🌐 www.4kfilm.com.tr</p>
+  <div class="construction"><span class="dot"></span> Site yapım aşamasındadır — yakında daha fazlası</div>
+</section>
+
+<footer>
+  <p class="brand">BGM Production</p>
+  <p>Hikâye &amp; Senaryo: Bektaş Topaloğlu</p>
+  <p style="margin-top:.6rem">&copy; 2026 4K — Gizli Saklı. Tüm hakları saklıdır. İsim hakları tescillidir.</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+  }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
