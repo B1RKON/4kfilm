@@ -7,7 +7,7 @@
 <meta name="description" content="4K — Bizim Şarkımız. Uzun metraj romantik dram filmi. Her sır saklandığı yerde büyür. Dört kadın, bir villa, bir sır. Yapım aşamasında.">
 <meta property="og:title" content="4K — Bizim Şarkımız | Yakında">
 <meta property="og:description" content="Her sır saklandığı yerde büyür. Dört kadın, bir villa, bir sır. Uzun metraj sinema filmi — yapım aşamasında.">
-<meta property="og:image" content="https://www.4kfilm.com.tr/assets/still-villa.jpg">
+<meta property="og:image" content="https://www.4kfilm.com.tr/assets/poster.jpg">
 <meta property="og:url" content="https://www.4kfilm.com.tr">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="assets/filigran.png">
@@ -47,14 +47,18 @@
   .hero::before {
     content: "";
     position: absolute; inset: 0;
-    background: url('assets/still-villa.jpg') center 30% / cover no-repeat;
+    background: url('assets/poster.jpg') center / cover no-repeat;
     z-index: -2;
   }
   .hero::after {
     content: "";
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(6,6,6,.55) 0%, rgba(6,6,6,.35) 40%, rgba(6,6,6,.92) 88%, var(--bg) 100%);
+    background: linear-gradient(180deg, transparent 0%, transparent 72%, rgba(6,6,6,.85) 94%, var(--bg) 100%);
     z-index: -1;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
   }
   .badge {
     display: inline-block;
@@ -316,23 +320,20 @@
 </head>
 <body>
 
-<header class="hero">
+<header class="hero" style="justify-content: flex-start; padding-top: 2rem;">
+  <h1 class="sr-only">4K — Bizim Şarkımız</h1>
   <span class="badge">Yapım Aşamasında &bull; Yakında</span>
-  <h1>4K</h1>
-  <h2>Bizim Şarkımız</h2>
-  <div class="rule"></div>
-  <p class="tagline">&ldquo;Her sır saklandığı yerde büyür.&rdquo;</p>
-  <div class="genre">
-    <span>Romantik</span>
-    <span>Dram</span>
-    <span>Uzun Metraj Sinema Filmi</span>
-  </div>
   <a class="scroll-hint" href="#film">Keşfet &darr;</a>
 </header>
 
 <section id="film" class="reveal">
   <p class="sec-label">Film Hakkında</p>
   <h2 class="sec-title">Bazı sırlar gömülmez.</h2>
+  <div class="genre" style="justify-content: flex-start; margin: 0 0 1.8rem;">
+    <span>Romantik</span>
+    <span>Dram</span>
+    <span>Uzun Metraj Sinema Filmi</span>
+  </div>
   <p class="lead">Dört genç kadın, yılların birikmiş sessizliğiyle dolu bir hafta sonu tatiline çıkar. Antalya'nın göz kamaştırıcı güzellikteki lüks bir villasında buluşurlar; deniz, güneş ve eğlence vaat eden bir kaçış. Ancak tatilin ilerleyen saatlerinde geçmişin karanlık yüzü yavaş yavaş gün yüzüne çıkmaya başlar.</p>
   <p class="lead">Dostluk, aşk, ihanet ve vicdan arasında sıkışıp kalan bu dört karakter, geri dönüşü olmayan bir yolculuğa sürüklenir. Antalya'nın büyülü atmosferi, bu karanlık hikâyenin yalnızca arka planı değil; gizlenen her sırrı ortaya çıkaran yaşayan bir tanık haline gelir.</p>
   <div class="pillars">
