@@ -56,9 +56,56 @@
     background: linear-gradient(180deg, transparent 0%, transparent 72%, rgba(6,6,6,.85) 94%, var(--bg) 100%);
     z-index: -1;
   }
-  .sr-only {
+  /* Mobil hero: poster tam genişlikte, kırpılmadan; altında başlık */
+  .poster-m { display: none; }
+  .hero-text-m {
     position: absolute; width: 1px; height: 1px;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  @media (max-width: 700px) {
+    .hero::before, .hero::after { display: none; }
+    .hero {
+      background: radial-gradient(ellipse at 50% 30%, #17130c 0%, var(--bg) 70%);
+      justify-content: center !important;
+      gap: 1.4rem;
+      padding: 2rem 0 4.5rem !important;
+    }
+    .hero-text-m { padding: 0 1.5rem; }
+    .poster-m {
+      display: block;
+      width: 100vw;
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 0 50px rgba(232,169,92,.12);
+    }
+    .hero-text-m {
+      position: static; width: auto; height: auto;
+      overflow: visible; clip: auto; white-space: normal;
+      text-align: center;
+    }
+    .hero-text-m h1 {
+      font-size: 4.2rem;
+      font-weight: 300;
+      letter-spacing: .08em;
+      color: #f4e3c8;
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(232,169,92,.35);
+    }
+    .hero-text-m h2 {
+      font-size: 1.15rem;
+      font-weight: 200;
+      letter-spacing: .45em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin: .5rem 0 0 .45em;
+    }
+    .hero-text-m .tagline {
+      font-size: .85rem;
+      color: var(--muted);
+      letter-spacing: .12em;
+      margin-top: .9rem;
+      font-style: normal;
+    }
   }
   .badge {
     display: inline-block;
@@ -321,8 +368,13 @@
 <body>
 
 <header class="hero" style="justify-content: flex-start; padding-top: 2rem;">
-  <h1 class="sr-only">4K — Bizim Şarkımız</h1>
   <span class="badge">Yapım Aşamasında &bull; Yakında</span>
+  <img class="poster-m" src="assets/poster.jpg" alt="4K — Bizim Şarkımız film afişi">
+  <div class="hero-text-m">
+    <h1>4K</h1>
+    <h2>Bizim Şarkımız</h2>
+    <p class="tagline">4 Kadın. 4 Sır. Tek Gece.</p>
+  </div>
   <a class="scroll-hint" href="#film">Keşfet &darr;</a>
 </header>
 
