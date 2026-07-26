@@ -361,11 +361,80 @@
   }
   @keyframes blink { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
 
+  /* ---------- Teaser (sayfa içi) ---------- */
+  .teaser { padding-top: 3.5rem; padding-bottom: 1rem; }
+  .teaser-frame {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    aspect-ratio: 9 / 16;
+    border: 1px solid var(--line);
+    box-shadow: 0 0 60px rgba(232,169,92,.16);
+    background: #000;
+    overflow: hidden;
+  }
+  .teaser-frame video { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .teaser-cap {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: .72rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--amber-dim);
+  }
+
+  /* ---------- Giriş teaser overlay ---------- */
+  #intro {
+    position: fixed; inset: 0;
+    z-index: 9999;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity .8s ease;
+  }
+  #intro.hide { opacity: 0; pointer-events: none; }
+  #intro video {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+  .intro-btn {
+    position: absolute;
+    font-family: inherit;
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: rgba(0,0,0,.55);
+    border: 1px solid rgba(232,169,92,.4);
+    border-radius: 2rem;
+    padding: .55rem 1.2rem;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background .3s, color .3s, border-color .3s;
+  }
+  .intro-btn:hover { background: var(--amber); color: #000; border-color: var(--amber); }
+  #intro-skip { top: 1.4rem; right: 1.4rem; }
+  #intro-sound { bottom: 1.6rem; left: 50%; transform: translateX(-50%); }
+  @media (max-width: 600px) {
+    #intro-skip { top: 1rem; right: 1rem; }
+    .intro-btn { font-size: .66rem; padding: .5rem 1rem; }
+  }
+
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
   .reveal.on { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
+
+<div id="intro">
+  <video id="intro-video" playsinline preload="auto" src="assets/teaser.mp4"></video>
+  <button id="intro-skip" class="intro-btn" type="button">Atla &times;</button>
+  <button id="intro-sound" class="intro-btn" type="button" hidden>&#128266; Sesi Aç</button>
+</div>
 
 <header class="hero" style="justify-content: flex-start; padding-top: 2rem;">
   <span class="badge">Yapım Aşamasında &bull; Yakında</span>
@@ -377,6 +446,13 @@
   </div>
   <a class="scroll-hint" href="#film">Keşfet &darr;</a>
 </header>
+
+<section class="teaser reveal" id="teaser">
+  <div class="teaser-frame">
+    <video id="teaser-video" controls playsinline preload="metadata" poster="assets/teaser-poster.jpg" src="assets/teaser.mp4"></video>
+  </div>
+  <p class="teaser-cap">Resmî Teaser</p>
+</section>
 
 <section id="film" class="reveal">
   <p class="sec-label">Film Hakkında</p>
@@ -431,7 +507,7 @@
     <img src="assets/title-card.jpg" alt="4K — Bizim Şarkımız">
     <div class="music-body">
       <p>Filmin dünyasına eşlik eden özgün şarkı: &ldquo;Bizde Bilirdik Sevmeyi&rdquo;.</p>
-      <audio id="theme-song" controls autoplay preload="auto" src="assets/bizde-bilirdik-sevmeyi.mp3"></audio>
+      <audio id="theme-song" controls preload="auto" src="assets/bizde-bilirdik-sevmeyi.mp3"></audio>
     </div>
   </div>
 </section>
@@ -457,18 +533,72 @@
   }), { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Şarkı siteye girer girmez başlasın; tarayıcı engellerse ilk etkileşimde başlat
+  // --- Film müziği: site açıldıktan 60 sn SONRA ve giriş teaseri bittikten sonra başlar ---
+  // (teaser sesi ile müziğin çakışmaması için gecikmeli başlatılır)
   const song = document.getElementById('theme-song');
   song.volume = 0.7;
-  function startSong() {
-    song.play().then(() => {
-      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
-        window.removeEventListener(ev, startSong));
-    }).catch(() => {});
+  let songStarted = false;
+  let delayPassed = false;   // 60 sn doldu mu
+  let introDone = false;     // giriş teaseri bitti/kapandı mı
+  function playSong() { song.play().catch(() => {}); }
+  function maybeStartSong() {
+    if (songStarted || !delayPassed || !introDone) return;
+    songStarted = true;
+    playSong();
+    // Tarayıcı sesli oynatmayı engellerse ilk etkileşimde başlat
+    ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
+      window.addEventListener(ev, playSong, { passive: true }));
   }
-  startSong();
-  ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
-    window.addEventListener(ev, startSong, { once: false, passive: true }));
+  // Site açıldıktan 60 saniye sonra müzik devreye girer
+  setTimeout(() => { delayPassed = true; maybeStartSong(); }, 60000);
+
+  // --- Giriş teaser: siteye ilk girişte otomatik oynar, bitince siteye döner ---
+  const intro = document.getElementById('intro');
+  const iv = document.getElementById('intro-video');
+  const skipBtn = document.getElementById('intro-skip');
+  const soundBtn = document.getElementById('intro-sound');
+  const teaser = document.getElementById('teaser-video');
+
+  function endIntro() {
+    if (!intro || intro.classList.contains('hide')) return;
+    intro.classList.add('hide');
+    try { iv.pause(); } catch (e) {}
+    setTimeout(() => { intro && intro.remove(); }, 900);
+    introDone = true;
+    maybeStartSong(); // teaser bitti; 60 sn de dolduysa müzik başlar
+  }
+
+  // Bu oturumda daha önce gösterildiyse tekrar gösterme
+  const seen = sessionStorage.getItem('introSeen');
+  if (!intro || seen) {
+    if (intro) intro.remove();
+    introDone = true;
+    maybeStartSong();
+  } else {
+    sessionStorage.setItem('introSeen', '1');
+    // Önce sesli oynatmayı dene; tarayıcı engellerse sessiz oynat + "Sesi Aç" butonu
+    iv.play().catch(() => {
+      iv.muted = true;
+      soundBtn.hidden = false;
+      iv.play().catch(() => endIntro()); // sessiz de oynamazsa doğrudan siteye geç
+    });
+    soundBtn.addEventListener('click', () => {
+      iv.muted = false;
+      soundBtn.hidden = true;
+      iv.play().catch(() => {});
+    });
+    iv.addEventListener('ended', endIntro);
+    skipBtn.addEventListener('click', endIntro);
+    // Güvenlik: video hiç yüklenemezse 1.5 sn sonra siteye geç
+    iv.addEventListener('error', () => setTimeout(endIntro, 1500));
+  }
+
+  // Sayfa içi teaser oynarken müziği durdur, bitince/durunca müziği geri getir
+  if (teaser) {
+    teaser.addEventListener('play', () => { try { song.pause(); } catch (e) {} });
+    teaser.addEventListener('pause', () => { if (songStarted) playSong(); });
+    teaser.addEventListener('ended', () => { if (songStarted) playSong(); });
+  }
 </script>
 
 </body>
